@@ -1,0 +1,28 @@
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import StudentsData from "./components/StudentsData";
+import "./styles.css";
+function App() {
+  const [user, setUser] = useState(null);
+  const [students, setStudents] = useState(StudentsData);
+
+  return (
+    <div>
+      {user && <Navbar setUser={setUser} />}
+
+      {!user ? (
+        <Login setUser={setUser} students={students} />
+      ) : (
+        <Dashboard
+          user={user}
+          students={students}
+          setStudents={setStudents}
+        />
+      )}
+    </div>
+  );
+}
+
+export default App;

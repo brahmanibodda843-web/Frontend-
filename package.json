@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://YOUR_USERNAME.github.io/studentrecord",
+  "homepage": "https://brahmanibodda843-web.github.io/Frontend-",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

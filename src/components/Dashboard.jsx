@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StudentList from "./StudentList";
 import SearchStudent from "./SearchStudent";
 import StudentDetail from "./StudentDetail";
@@ -6,6 +6,7 @@ import AddStudentPage from "./AddStudentPage";
 import TimetablePage from "./TimetablePage";
 import CoursePage from "./CoursePage";
 import CourseRegistration from "./CourseRegistration";
+import { api } from "../api/api";
 
 function Dashboard({ user, students, setStudents }) {
   const role = user?.role;
@@ -13,9 +14,28 @@ function Dashboard({ user, students, setStudents }) {
   const [branch, setBranch] = useState("");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [page, setPage] = useState("home");
+  const [loading, setLoading] = useState(true);
 
   // 🔥 For search filtering
   const [filteredStudents, setFilteredStudents] = useState([]);
+
+  // Fetch students from API
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const apiStudents = await api.getStudents();
+        setStudents(apiStudents);
+      } catch (error) {
+        console.error('Failed to fetch students:', error);
+        // Fallback to empty array if API fails
+        setStudents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, [setStudents]);
 
   // Filter by branch
   const branchStudents = students.filter(
@@ -111,6 +131,20 @@ function Dashboard({ user, students, setStudents }) {
         updateStudent={updateStudent}
         goBack={() => setPage("detail")}
       />
+    );
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="dashboard-card">
+          <div className="loading-section">
+            <div className="loading-spinner"></div>
+            <p>Loading students data...</p>
+          </div>
+        </div>
+      </div>
     );
   }
 

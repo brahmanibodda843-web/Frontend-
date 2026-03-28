@@ -14,7 +14,7 @@ function Login({ setUser, students }) {
 
     setIsLoading(true);
     
-    // Simulate API call delay
+    
     setTimeout(() => {
       if (role === "admin") {
         if (id === "admin" && password === "admin123") {
@@ -26,7 +26,7 @@ function Login({ setUser, students }) {
 
       if (role === "student") {
         const student = students.find(
-          (s) => s.id === id && s.password === password.toLowerCase()
+          (s) => s.id === id && s.password === password
         );
 
         if (student) {
@@ -128,11 +128,13 @@ function Login({ setUser, students }) {
               <div className="demo-item">
                 <strong>Student Examples:</strong><br/>
                 • CSE101 / cse123<br/>
-                • ECE105 / ece123<br/>
-                • IT110 / it123<br/>
-                • MECH120 / mech123
+                • ECE101 / ece123<br/>
+                • EEE101 / eee123<br/>
+                • IT101 / it123<br/>
+                • MECH101 / mech123
               </div>
               <div className="demo-item">
+                <strong>ID Range:</strong> 101-135 for each branch<br/>
                 <strong>Password Format:</strong> [branch in lowercase] + 123
               </div>
             </div>
